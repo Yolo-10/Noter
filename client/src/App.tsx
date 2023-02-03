@@ -1,22 +1,20 @@
-import React, { Suspense } from "react";
-import type { FunctionComponent } from "react";
+import React, { Suspense } from 'react'
+import type { FunctionComponent } from 'react'
+import { BrowserRouter, Route, Routes} from 'react-router-dom'
 
-import RouterConfig from "./router";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./store";
-import "@/assets/styles/normalize";
+// import RouterConfig from './router'
+import Login from '@/pages/login'
 
 const App: FunctionComponent = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Suspense fallback={<div>加载中</div>}>
-          <RouterConfig />
-        </Suspense>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Suspense fallback={<div>loading....</div>}>
+        <Routes>
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 };
 
-export default App;
+export default App

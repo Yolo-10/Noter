@@ -113,7 +113,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(PUBLIC_PATH, "index.html"),
       filename: "index.html",
-      title: "moment",
+      title: "MorningBlog",
       inject: true,
       hash: true,
       minify: IS_DEVELOPMENT
