@@ -1,4 +1,5 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
+const { db } = require('../db')
 
 //文章表
 class Note extends Model {}
@@ -38,8 +39,8 @@ Note.init({
 		defaultValue: 1 //处于草稿状态
 	}
 },{
-    Sequelize,
-    modelName: 'note' 
+    sequelize: db,
+    tableName: 'note' 
 })
 
 module.exports = { Note }

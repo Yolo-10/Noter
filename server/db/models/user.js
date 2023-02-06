@@ -1,5 +1,5 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { DataTypes, Model } = require('sequelize');
+const { db } = require('../db')
 
 //用户表
 class User extends Model {}
@@ -31,8 +31,8 @@ User.init({
     // 用户头像
     avatar: DataTypes.STRING(255),
 }, {
-    sequelize, // 连接实例
-    modelName: 'user' // 模型名称
+    sequelize: db, // 连接实例
+    tableName: 'user' // 模型名称
 });
 
 module.exports = { User };

@@ -1,4 +1,5 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
+const { db } = require('../db')
 
 //标签表
 class Tag extends Model {}
@@ -12,8 +13,8 @@ Tag.init({
 	name: DataTypes.STRING(100),
 	author: DataTypes.INTEGER
 },{
-    sequelize, // 连接实例
-    modelName: 'tag' // 模型名称
+    sequelize: db, // 连接实例
+    tableName: 'tag' // 模型名称
 })
 
 

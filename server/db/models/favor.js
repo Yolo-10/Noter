@@ -1,15 +1,16 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
+const { db } = require('../db')
 
 //点赞表
 class Favor extends Model {}
 
 Favor.init({
-    uid: Sequelize.INTEGER,
-	artId: Sequelize.INTEGER,
-	type: Sequelize.INTEGER,
+    uid: DataTypes.INTEGER,
+	artId: DataTypes.INTEGER,
+	type: DataTypes.INTEGER,
 },{
-    sequelize, // 连接实例
-    modelName: 'favor' // 模型名称
+    sequelize: db, // 连接实例
+    tableName: 'favor' // 模型名称
 })
 
 

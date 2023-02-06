@@ -1,0 +1,28 @@
+const { HttpException } = require('../util/errors')
+
+/**
+ * 全局捕获异常中间件
+ * @param ctx
+ * @param next
+ */
+const catchError = async (ctx, next) => {
+	try {
+		await next()
+	} catch (error) {
+		if (error instanceof HttpException) {
+			ctx.body = {
+				code: error.code,
+				data: error.data,
+				message: error.message,
+			}
+		} else {
+			ctx.body = {
+                code: error.code,
+				message: '捕获到未知异常:\n' + error.stack,
+				request: `${ctx.method} ${ctx.path}`,
+			}
+			ctx.status = 500
+		}
+	}
+}
+module.exports = catchError
