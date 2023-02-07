@@ -1,0 +1,100 @@
+.g-nav{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .m-nav{
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 20px;
+        color: #333;
+        background-color: #E6EDCB;
+
+        .imgC{
+            display: flex;
+            justify-content: center;
+            &>img{
+                height: 38px;
+            }
+        }
+
+        &>label{
+            margin: 0 10px;
+            color: #000;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .m-menu{
+            height:100%;
+            display: flex;
+            flex: 1 1;
+            
+            .m-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 20px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: .3s;
+            }
+    
+            .active{
+                color: #ff6600;
+            }
+        }  
+        
+        .avatarMenu{
+            position: relative;
+            width: 120px;
+
+            img{
+                border-radius: 20px;
+            }
+
+            &:hover>.m-sub_menu{
+                display: block;
+            }
+
+            .m-sub_menu{
+                display: none;
+                width: 100%;
+                text-align: center;
+                position: absolute;
+                bottom: 0;
+                transform: translate(0,100%);
+                background-color: #fff;
+                border-radius: 5px;
+
+                div{
+                    font-size: 13px;
+                    padding: 10px;
+                    border-bottom: 1px solid #e8e8eD;
+                }
+                
+                .m-sub{
+                    display: block;
+                    padding: 3px;
+
+                    &:hover{
+                        background-color: #ff6600;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    .g-main{
+        background-color: pink;
+    }
+
+    .m-footer{
+        height: 35px;
+        line-height: 35px;
+        background-color: #E6EDCB;
+        text-align: center;
+    }
+}

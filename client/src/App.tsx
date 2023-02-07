@@ -1,17 +1,14 @@
 import React, { Suspense } from 'react'
-import type { FunctionComponent } from 'react'
-import { BrowserRouter, Route, Routes} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { Spin } from 'antd';
 
-// import RouterConfig from './router'
-import Login from '@/pages/login'
+import RouterConfig from './pages/routesConfig'
 
-const App: FunctionComponent = () => {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>loading....</div>}>
-        <Routes>
-          <Route path="/login" element={<Login/>} />
-        </Routes>
+      <Suspense fallback={<Spin size='large'/>}>
+        <RouterConfig/>
       </Suspense>
     </BrowserRouter>
   );

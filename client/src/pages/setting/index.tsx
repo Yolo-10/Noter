@@ -1,12 +1,12 @@
 import React from "react";
 import './index.scss'
 
-const Home: React.FC = () => {
+const Setting: React.FC = () => {
   return (
     <div className='root'>
-      Home...
+      setting...
     </div>
   );
 };
 
-export default Home;
+export default Setting;

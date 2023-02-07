@@ -2,10 +2,10 @@ const Router = require('koa-router');
 const axios = require('axios');
 const { github } = require('../config/constant')
 const { success } = require('../util/success')
+const { generateToken } = require('../util/jwtToken')
 
 //自动加前缀
 const router = new Router({ prefix: '' });
-
 
 // github授权登录
 router.get('/oauth', async (ctx) => {
@@ -37,14 +37,22 @@ router.get('/oauth', async (ctx) => {
 
     // 拿到用户数据，本平台内登录，获取数据
     if (resp?.status === 200) {
-      // const { token, user } = await githubLogin(resp.data);
-      // success('已获取 token', { token, user, type: 233 });
-      success('已获取 token', {  type: 233 });
+      const { token, user } = await generateData(resp.data);
+      success('已获取 token', { token, user, type: 233 });
     }
   } else {
     throw new global.errs.Forbidden();
   }
 });
 
+// 从github中获取用户数据，（并向用户表新增一条数据），生成token等信息返回
+async function generateData(githubUser){
+  const user = await User.getUserByGithubId(githubUser);
+  const token = generateToken(user.id, Auth.USER);
+  return {
+    token,
+    user,
+  };
+}
 
 module.exports = router

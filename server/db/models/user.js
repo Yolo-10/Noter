@@ -2,7 +2,28 @@ const { DataTypes, Model } = require('sequelize');
 const { db } = require('../db')
 
 //用户表
-class User extends Model {}
+class User extends Model {
+  
+    // 从github中获取数据
+    static async getUserByGithubId(gitUser) {
+        const user = await User.findOne({
+            where: {
+                githubId: gitUser.id,
+            },
+        });
+        if (user) {
+            return user;
+        } else {
+            return await User.create({
+                githubId: gitUser.id,
+                userName: gitUser.login,
+                email: gitUser.email,
+                avatar: gitUser.avatar_url,
+                desc: gitUser.bio,
+            });
+        }
+    }
+}
 
 User.init({
     // 记录ID
