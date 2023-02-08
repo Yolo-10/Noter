@@ -1,10 +1,11 @@
 import React from "react";
-import './index.scss'
+import { Outlet } from "react-router-dom";
 
 const My: React.FC = () => {
   return (
-    <div className='root'>
+    <div>
       my...
+      <Outlet/>
     </div>
   );
 };

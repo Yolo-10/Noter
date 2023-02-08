@@ -3,7 +3,6 @@ import { Button } from 'antd/es';
 import { GithubOutlined } from '@ant-design/icons';
 // import OauthPopup from 'react-oauth-popup';
 import * as url from '@/constant/urls'
-
 import './index.scss'
 
 const Login: React.FC = () => {

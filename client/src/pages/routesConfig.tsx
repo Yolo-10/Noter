@@ -1,7 +1,8 @@
 import React, { lazy } from "react";
 import { useRoutes } from "react-router-dom";
 
-const NavWrapper = lazy(()=> import("@/components/NavWrapper"))
+const NavWrapper = lazy(() => import("@/components/NavWrapper"))
+const Auth = lazy(() => import("@/components/Auth"))
 const Home = lazy(() => import("@/pages/home"));
 const My = lazy(() => import("@/pages/my"));
 const Profile = lazy(() => import("@/pages/profile"));
@@ -24,17 +25,21 @@ const RouterConfig: React.FC = () => {
         },
         {
           path: "/profile",
-          element: <Profile />,
+          element: <Auth><Profile /></Auth>,
         },
         {
           path: "/setting",
-          element: <Setting />,
+          element: <Auth><Setting /></Auth>,
         },
       ]
     },
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "*",
+      element: <div>Not Found</div>,
     },
   ]);
 };

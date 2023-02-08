@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Outlet,Link} from "react-router-dom";
-import { Dropdown } from 'antd';
-import type { MenuProps } from 'antd';
 import { MENU_MAIN,MENU_MY } from '@/constant/config'
 import logo from '@/assets/img/logo.png'
 import avatar from '@/assets/img/avatar.png'
