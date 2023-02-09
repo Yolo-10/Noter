@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const { Model } = require('sequelize')
+const { unset, clone, isArray } = require('lodash');
 const { host,port,dbName,user,password } = require('../config/constant').database
 
 //连接配置
@@ -27,8 +28,7 @@ const db = new Sequelize(dbName,user,password,{
 db.sync()
 
 
-//TODO:什么用
-/**
+/** 查找数据库返回的数据做处理
  * 全局:返回的时候删除三个时间戳
  * 功能简单粗暴单一
  */
@@ -45,7 +45,9 @@ Model.prototype.toJSON = function () {
 	}
 
 	// 待删除字段
+	// TODO:有什么用？？？？ 好像这一部分暂时未使用到
 	if (isArray(this.exclude)) {
+		console.log(111111111111111111111)
 		this.exclude.forEach(val => {
 			unset(data, val)
 		})

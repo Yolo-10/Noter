@@ -30,7 +30,7 @@ export const userSlice = createSlice({
       state.userInfo = undefined;
     },
   },
-  extraReducers(builder) {},
+  extraReducers() {},
 });
 
 export default userSlice.reducer;

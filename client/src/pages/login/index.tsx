@@ -4,11 +4,16 @@ import { GithubOutlined } from '@ant-design/icons';
 // import OauthPopup from 'react-oauth-popup';
 import * as url from '@/constant/urls'
 import './index.scss'
+import { useLocation } from 'react-router-dom';
 
 const Login: React.FC = () => {
-
-  const onCode = async () => {
+  const { search } = useLocation()
+  
+  const onCode = () => {
     window.location.href = url.API_GITHUB
+    // console.log('finish')
+    // console.log(code)
+    // window.location.href = '/'
   };
 
   return (
@@ -19,6 +24,8 @@ const Login: React.FC = () => {
             title='Github Login'
             width={500}
             height={700}
+            onCode={onCode}
+            onClose={()=>{console.log('close')}}
           > */}
             <Button
               type='primary'
@@ -27,7 +34,7 @@ const Login: React.FC = () => {
                 width: '100%',
                 background: '#24292e',
                 borderColor: '#24292e',
-              }}
+          }}
               onClick={onCode}
             >
               <GithubOutlined />

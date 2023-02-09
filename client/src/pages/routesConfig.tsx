@@ -31,11 +31,11 @@ const RouterConfig: React.FC = () => {
           path: "/setting",
           element: <Auth><Setting /></Auth>,
         },
+        {
+          path: "/login",
+          element: <Login />,
+        },
       ]
-    },
-    {
-      path: "/login",
-      element: <Login />,
     },
     {
       path: "*",

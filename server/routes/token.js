@@ -3,6 +3,7 @@ const axios = require('axios');
 const { github } = require('../config/constant')
 const { success } = require('../util/success')
 const { generateToken } = require('../util/jwtToken')
+const { User } = require('../db/models/user')
 
 //自动加前缀
 const router = new Router({ prefix: '' });
@@ -11,6 +12,7 @@ const router = new Router({ prefix: '' });
 router.get('/oauth', async (ctx) => {
   //拿到授权码
   const code = ctx.query.code;
+  console.log('code',code)
   //向 GitHub 请求令牌
   const authResp = await axios({
     method: 'post',
@@ -21,8 +23,7 @@ router.get('/oauth', async (ctx) => {
     headers: {
       accept: 'application/json'
     }
-  });
-
+  })
 
   if (authResp?.data?.access_token) {
     // 有了令牌，向github请求用户数据
@@ -34,11 +35,13 @@ router.get('/oauth', async (ctx) => {
         Authorization: `token ${authResp.data.access_token}`
       }
     });
+    console.log('resp',resp)
 
     // 拿到用户数据，本平台内登录，获取数据
     if (resp?.status === 200) {
       const { token, user } = await generateData(resp.data);
-      success('已获取 token', { token, user, type: 233 });
+      // success('已获取 token', { token, user, type: 233 });
+      ctx.response.redirect('/')
     }
   } else {
     throw new global.errs.Forbidden();
@@ -48,7 +51,7 @@ router.get('/oauth', async (ctx) => {
 // 从github中获取用户数据，（并向用户表新增一条数据），生成token等信息返回
 async function generateData(githubUser){
   const user = await User.getUserByGithubId(githubUser);
-  const token = generateToken(user.id, Auth.USER);
+  const token = generateToken(user.id);
   return {
     token,
     user,
