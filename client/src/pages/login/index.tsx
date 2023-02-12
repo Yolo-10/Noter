@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const { search } = useLocation()
+  console.log(search)
   
   const onCode = () => {
     window.location.href = url.API_GITHUB
