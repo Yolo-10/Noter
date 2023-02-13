@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Outlet,Link} from "react-router-dom";
-import { MENU_MAIN,MENU_MY } from '@/constant/config'
+import { MENU_MAIN, MENU_MY } from '@/constant/config'
+import { useAppSelector } from "@/store";
 import logo from '@/assets/img/logo.png'
-import avatar from '@/assets/img/avatar.png'
 import './index.scss'
 
 const NavWrapper : React.FC = () => {
-    const [ selM , setSelM ] = useState(0)
+    const [selM, setSelM] = useState(0)
+    const userInfo = useAppSelector(state => state.user.userInfo)
 
     return (
         <div className="g-nav">
@@ -27,17 +28,18 @@ const NavWrapper : React.FC = () => {
                         >{item.name}</Link>)}
                 </div>
 
-                <div className="imgC avatarMenu">
-                    <img src={avatar} alt="" />
-                    <div className="m-sub_menu">
-                        <div>Yolo-10</div>
-                        {MENU_MY.map((item)=>
-                            <Link to={item.key} key={item.key} className="m-sub">{item.name}</Link>
-                        )}
-                    </div>
-                </div>
-
-                <Link to={"/login"}>登录</Link>
+                {userInfo ?
+                    <div className="imgC avatarMenu">
+                        <img src={userInfo.avatar} alt="" />
+                        <div className="m-sub_menu">
+                            <div>{userInfo.userName}</div>
+                            {MENU_MY.map((item)=>
+                                <Link to={item.key} key={item.key} className="m-sub">{item.name}</Link>
+                            )}
+                        </div>
+                    </div> :
+                    <Link to={"/login"}>登录</Link>
+                }
 
             </div>
             <div className="g-main"><Outlet/></div>

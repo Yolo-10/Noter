@@ -12,8 +12,7 @@ const router = new Router({ prefix: '' });
 router.get('/oauth', async (ctx) => {
   //拿到授权码
   const code = ctx.query.code;
-  console.log('code',code)
-  //向 GitHub 请求令牌
+  // 向 GitHub 请求令牌
   const authResp = await axios({
     method: 'post',
     url: 'https://github.com/login/oauth/access_token?' +
@@ -35,13 +34,11 @@ router.get('/oauth', async (ctx) => {
         Authorization: `token ${authResp.data.access_token}`
       }
     });
-    console.log('resp',resp)
 
     // 拿到用户数据，本平台内登录，获取数据
     if (resp?.status === 200) {
       const { token, user } = await generateData(resp.data);
-      // success('已获取 token', { token, user, type: 233 });
-      ctx.response.redirect('/')
+      success('已获取 token', { token, user, type: 233 });
     }
   } else {
     throw new global.errs.Forbidden();

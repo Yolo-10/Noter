@@ -1,5 +1,5 @@
+import axios from "axios";
 import { message } from "antd";
-import axios  from "axios";
 
 // 所有请求
 // 拦截器:加token,处理返回
@@ -15,7 +15,7 @@ const request = (url = '', options = {}) => {
         url,
         ...options,
     }).then(r => {
-        if (r && r.status == 200) {
+        if (r && r.status === 200) {
             return r.data
         } else {
             message.error('网络错误')
@@ -29,7 +29,6 @@ const request = (url = '', options = {}) => {
     })
 }
 export default request
-
 
 export const get = (url:string,params:{}) => {
     // TODO:是否需要处理参数
@@ -52,5 +51,3 @@ export const post = (url: string, data: {}) => {
         }
     )
 }
-
-

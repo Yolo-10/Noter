@@ -1,21 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from 'antd/es';
 import { GithubOutlined } from '@ant-design/icons';
 // import OauthPopup from 'react-oauth-popup';
 import * as url from '@/constant/urls'
 import './index.scss'
 import { useLocation } from 'react-router-dom';
+import { useAppDispatch } from '@/store';
+import { saveUser } from '@/store/userSlice';
+import { getUrlParams } from '@/utils/fn';
+import { get } from '@/utils/axios';
+import { saveToken } from '@/utils/token';
 
 const Login: React.FC = () => {
   const { search } = useLocation()
-  console.log(search)
-  
-  const onCode = () => {
+  const dispatch = useAppDispatch()
+
+  const doOauth = () => {
     window.location.href = url.API_GITHUB
-    // console.log('finish')
-    // console.log(code)
-    // window.location.href = '/'
   };
+
+  const doLogin = async(code: string) => {
+    let res = await get(url.API_OAUTH,{code:code})
+    dispatch(saveUser(res?.data?.user))
+    saveToken(res?.data?.token)
+  }
+  
+  useEffect(() => {
+    let code = getUrlParams(search)?.code;
+    if (code !== undefined) doLogin(code)
+  },[])
 
   return (
     <div className='g-login'>
@@ -36,7 +49,7 @@ const Login: React.FC = () => {
                 background: '#24292e',
                 borderColor: '#24292e',
           }}
-              onClick={onCode}
+              onClick={doOauth}
             >
               <GithubOutlined />
                 Github 一键登录

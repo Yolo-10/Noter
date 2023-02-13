@@ -1,3 +1,6 @@
+export const COOKIE_NAME = "MorningBlog"
+export const BASE_URL = 'http://localhost:8030'
+
 export const MENU_MAIN = [
     {name:'首页',key:'/'},
     {name:'创作中心',key:'/my'},
