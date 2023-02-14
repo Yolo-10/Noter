@@ -17,7 +17,7 @@ const NavWrapper : React.FC = () => {
     },[])
 
     return (
-        <div className="g-nav">
+        <div className="app-root">
             <div className="m-nav">
                 <a className="imgC">
                     <img src={logo} alt="" />

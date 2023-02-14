@@ -23,6 +23,7 @@ router.get('/oauth', async (ctx) => {
       accept: 'application/json'
     }
   })
+  // console.log('authResp',authResp)
 
   if (authResp?.data?.access_token) {
     // 有了令牌，向github请求用户数据
@@ -38,7 +39,7 @@ router.get('/oauth', async (ctx) => {
     // 拿到用户数据，本平台内登录，获取数据
     if (resp?.status === 200) {
       const { token, user } = await generateData(resp.data);
-      success('已获取 token', { token, user});
+      success('已获取 token', { token, user });
     }
   } else {
     throw new global.errs.Forbidden();

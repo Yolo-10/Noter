@@ -1,0 +1,53 @@
+.g-profile{
+    margin: 20px 80px;
+    display: flex;  
+
+    .m-user{
+        height: 120px;
+        display: flex;
+        align-items: flex-end;
+
+        .avatar{
+            height: 100%;
+            img{
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+
+        .user-mes{
+            flex: 1;
+            margin-left: 20px;
+        }
+    }
+
+    >div{
+        padding: 20px;
+        background-color: #fff;
+    }
+    
+    .m-user{
+        min-width: 760px;
+    }
+
+    .m-score{
+        min-width: 230px;
+        margin-left: 50px;
+
+        .hd{
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .item{
+            padding: 3px 0;
+
+            >span{
+                padding-right: 5px;
+            }
+        }
+    }
+
+
+}
