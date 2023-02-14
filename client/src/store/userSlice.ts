@@ -24,8 +24,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     saveUser: (state, action) => {
-      state.userInfo = action.payload;
-      console.log(state.userInfo);
+      state.userInfo = action.payload.user;
     },
     removeUser: state => {
       state.userInfo = undefined;

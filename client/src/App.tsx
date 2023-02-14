@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { Spin } from 'antd';
+import decode from 'jwt-decode'
 
 import RouterConfig from '@/pages/routesConfig'
 import { useAppDispatch } from '@/store';
@@ -13,7 +14,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     let token = getToken()
-    if(!isN(token)) dispatch(saveUser(token))
+    if (!isN(token)) {
+      dispatch(saveUser(decode(token)))
+    }
   },[])
 
   return (
