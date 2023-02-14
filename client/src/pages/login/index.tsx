@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from 'react'
 import { Button } from 'antd/es';
 import { GithubOutlined } from '@ant-design/icons';
-import * as url from '@/constant/urls'
 import { useLocation } from 'react-router-dom';
+import * as url from '@/constant/urls'
 import { useAppDispatch } from '@/store';
 import { saveUser } from '@/store/userSlice';
 import { getUrlParams, isN } from '@/utils/fn';
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
     if (!isN(res?.data)) {
       dispatch(saveUser(res?.data?.user))
       saveToken(res?.data?.token)
-      // window.location.href = '/'
+      window.location.href = '/'
     }
   }
   
