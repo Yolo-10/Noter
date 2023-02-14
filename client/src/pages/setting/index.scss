@@ -1,0 +1,48 @@
+.g-setting {
+    width: 548px;
+    margin: 10px auto;
+  
+    .m-title {
+        font-size: 25px;
+        letter-spacing: .1em;
+        padding: 0px 0 20px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .m-form {
+        background: #FFFFFF;
+        margin: 20px 0;
+        padding: 20px 30px;
+
+        label {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            color: #292525;
+            text-align: left;
+        }
+        
+        .ant-form-item{
+            margin-bottom: 15px;
+        }
+    }
+  
+    .setting-save {
+      padding: 5px 40px;
+      color: #fd281a;
+      background: #fff;
+      border-radius: 24px;
+      border: none;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      font-size: 1rem;
+      text-align: center;
+      letter-spacing: .1em;
+      &:hover {
+        color: #fff;
+        background: #fd281a;
+      }
+    }
+  }
+  
