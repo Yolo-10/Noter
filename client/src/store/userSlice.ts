@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeToken } from "@/utils/token";
 
 interface userType {
   id: number;
@@ -28,6 +29,7 @@ export const userSlice = createSlice({
     },
     removeUser: state => {
       state.userInfo = undefined;
+      removeToken();
     },
   },
   extraReducers() {},

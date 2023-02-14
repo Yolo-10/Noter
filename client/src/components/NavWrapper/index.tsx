@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Outlet,Link} from "react-router-dom";
 import { MENU_MAIN, MENU_MY } from '@/constant/config'
-import { useAppSelector } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import logo from '@/assets/img/logo.png'
 import './index.scss'
+import { removeUser } from "@/store/userSlice";
 
 const NavWrapper : React.FC = () => {
     const [selM, setSelM] = useState(0)
     const userInfo = useAppSelector(state => state.user.userInfo)
+    const dispatch = useAppDispatch()
+
+    const signOut = useCallback(() => {
+        dispatch(removeUser())
+        window.location.href = '/'
+    },[])
 
     return (
         <div className="g-nav">
@@ -36,6 +43,7 @@ const NavWrapper : React.FC = () => {
                             {MENU_MY.map((item)=>
                                 <Link to={item.key} key={item.key} className="m-sub">{item.name}</Link>
                             )}
+                            <a className="m-sub" onClick={signOut}>退出登录</a>
                         </div>
                     </div> :
                     <Link to={"/login"}>登录</Link>
