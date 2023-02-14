@@ -7,7 +7,7 @@ module.exports = {
         password:'123456',
     },
     secrets:{
-        secretKey:'noter2023', 
+        secretKey:'MorningBlog2023', 
         expiresIn: 60 * 60 * 24 * 30,
     },
     github: {
