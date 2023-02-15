@@ -2,8 +2,14 @@
     margin: 20px 80px;
     display: flex;  
 
+    >div{
+        padding: 20px;
+        background-color: #fff;
+    }
+
     .m-user{
-        height: 120px;
+        min-width: 760px;
+        height: 124px;
         display: flex;
         align-items: flex-end;
 
@@ -19,15 +25,6 @@
             flex: 1;
             margin-left: 20px;
         }
-    }
-
-    >div{
-        padding: 20px;
-        background-color: #fff;
-    }
-    
-    .m-user{
-        min-width: 760px;
     }
 
     .m-score{
@@ -48,6 +45,4 @@
             }
         }
     }
-
-
 }

@@ -46,7 +46,7 @@ const NavWrapper : React.FC = () => {
                             <a className="m-sub" onClick={signOut}>退出登录</a>
                         </div>
                     </div> :
-                    <Link to={"/login"}>登录</Link>
+                    <Link to={"/login"}><button className="btn-edit">登录</button></Link>
                 }
 
             </div>
