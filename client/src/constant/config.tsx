@@ -1,5 +1,9 @@
-export const COOKIE_NAME = "MorningBlog"
 export const BASE_URL = 'http://localhost:8030'
+
+export const COOKIE = {
+    cookieName: 'MorningBlog',
+    expires : 7 * 24 * 60 * 60* 1000, //7天
+}
 
 export const MENU_MAIN = [
     {name:'首页',key:'/'},

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from 'react'
-import { Button } from 'antd/es';
+import React, { useCallback, useEffect, useState } from 'react'
+import { Button, Spin } from 'antd/es';
 import { GithubOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
 import * as url from '@/constant/urls'
@@ -12,19 +12,22 @@ import './index.scss'
 
 const Login: React.FC = () => {
   const { search } = useLocation()
+  const [loading,setLoading] = useState(false)
   const dispatch = useAppDispatch()
 
   const doOauth = useCallback(() => {
     window.location.href = url.API_GITHUB
   },[])
 
-  const doLogin = async(code: string) => {
+  const doLogin = async (code: string) => {
+    setLoading(true)
     let res = await get(url.API_OAUTH, { code: code })
     if (!isN(res?.data)) {
       dispatch(saveUser(res?.data?.user))
       saveToken(res?.data?.token)
       window.location.href = '/'
     }
+    setLoading(false)
   }
   
   useEffect(() => {
@@ -33,8 +36,9 @@ const Login: React.FC = () => {
   },[])
 
   return (
-    <div className='g-login'>
-      <div className='m-login'>
+    <Spin spinning={loading}>
+      <div className='g-login'>
+        <div className='m-login'>
             <Button
               type='primary'
               style={{
@@ -47,8 +51,10 @@ const Login: React.FC = () => {
               <GithubOutlined />
                 Github 一键登录
             </Button>
+        </div>
       </div>
-    </div>
+    </Spin>
+
   );
 }
 

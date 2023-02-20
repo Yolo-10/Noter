@@ -2,12 +2,19 @@ import React from "react";
 import { Button, Form, Input } from 'antd';
 import TextArea from "antd/es/input/TextArea";
 import './index.scss'
+import { useAppSelector } from "@/store";
 
 const Setting: React.FC = () => {
+  const userInfo = useAppSelector(state => state.user.userInfo)
+
+  const submit = (values:any) => {
+    console.log(values)
+  }
+
   return (
     <div className="g-setting">
       <div className="m-title">账号设置</div>
-      <Form layout='vertical' className='m-setting-form'>
+      <Form layout='vertical' className='m-setting-form' onFinish={submit} initialValues={userInfo}>
         <div className='m-form'>
           <Form.Item name='userName' required label='用户名' >
             <Input size='large' placeholder='用户名' />

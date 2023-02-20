@@ -1,16 +1,22 @@
 const { DataTypes, Model } = require('sequelize');
 const { db } = require('../db')
+const { Note } = require('../models/note');
 
 //用户表
 class User extends Model {
+    static async noteTotal(id) {
+        return await Note.sum('id',{ where: {author: id} })
+    }
+    static async likeTotal(id) {
+        return await Note.sum('likeNum', { where: { author: id } })
+    }
+    static async collectTotal(id) {
+        return await Note.sum('collectNum',{ where: {author:id} })
+    }
   
     // 从github中获取数据
     static async getUserByGithubId(gitUser) {
-        const user = await User.findOne({
-            where: {
-                githubId: gitUser.id,
-            },
-        });
+        const user = await User.findOne({ where: {githubId: gitUser.id}});
         if (user) {
             return user;
         } else {

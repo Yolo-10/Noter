@@ -1,14 +1,15 @@
-import { COOKIE_NAME } from "@/constant/config"
+import { COOKIE } from "@/constant/config"
 import cookie from 'react-cookies'
 
 export const getToken = () => {
-    return cookie.load(COOKIE_NAME)
+    return cookie.load(COOKIE.cookieName)
 }
 
-export const saveToken = (token:string) => {
-    cookie.save(COOKIE_NAME,token,{})
+export const saveToken = (token: string) => {
+    let time = new Date(new Date().getTime() + COOKIE.expires)
+    cookie.save(COOKIE.cookieName,token,{expires:time})
 }
 
 export const removeToken = () => {
-    cookie.remove(COOKIE_NAME)
+    cookie.remove(COOKIE.cookieName)
 }

@@ -18,7 +18,8 @@ const request = (url = '', options = {}) => {
     }).then(r => {
         if (r && r.status === 200) {
             return r.data
-        } else {
+        }
+        else {
             message.error('网络错误')
         }
     }).catch(e => {
@@ -31,7 +32,7 @@ const request = (url = '', options = {}) => {
 }
 export default request
 
-export const get = (url:string,params:{}) => {
+export const get = (url:string,params?:{}) => {
     // TODO:是否需要处理参数
     // 返回请求
     return request(

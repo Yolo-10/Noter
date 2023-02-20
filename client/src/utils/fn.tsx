@@ -1,3 +1,5 @@
+import { notification } from "antd"
+
 export const isN = (e: string | null | undefined) => {
     return ((e===null)||(e===undefined)||(e===''))
 }
@@ -12,4 +14,18 @@ export const getUrlParams = (url:string) => {
         res[key] = value
     })
     return res
+}
+
+export const msg = (info:string) => {
+    notification.info({
+        message: '提示',
+        description: info,
+        placement: 'topLeft',
+        duration: 2,
+        style: {
+            width: 300,
+            color:'#ff0000',
+            background: 'rgba(255,255,255,.9)',
+        },
+    })
 }

@@ -8,7 +8,7 @@ module.exports = {
     },
     secrets:{
         secretKey:'MorningBlog2023', 
-        expiresIn: 60 * 60 * 24 * 30,
+        expiresIn: 60 * 60 * 24 , //一周
     },
     github: {
 		client_id: '55280d745fd8bb0a098e',

@@ -15,6 +15,10 @@ const catchError = async (ctx, next) => {
 				data: error.data,
 				message: error.message,
 			}
+			// TODO:多种code形式
+			switch (error.code) {
+				case 403: ctx.status = 403
+			}
 		} else {
 			ctx.body = {
                 code: error.code,
