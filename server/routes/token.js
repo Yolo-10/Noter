@@ -10,7 +10,14 @@ const router = new Router({ prefix: '' });
 
 // github授权登录
 router.get('/oauth', async (ctx) => {
-  //拿到授权码
+  let data = {
+		id: 80615277,
+	}
+	const { token, user } = await generateData(data)
+  success(user.userName + '欢迎您', { token, user, type: 233 })
+  
+  /**
+  // 拿到授权码
   const code = ctx.query.code;
   // 向 GitHub 请求令牌
   const authResp = await axios({
@@ -38,12 +45,11 @@ router.get('/oauth', async (ctx) => {
 
     // 拿到用户数据，本平台内登录，获取数据
     if (resp?.status === 200) {
-      const { token, user } = await generateData(resp.data);
-      success('已获取 token', { token, user });
     }
   } else {
     throw new global.errs.Forbidden();
   }
+  */
 });
 
 // 从github中获取用户数据，（并向用户表新增一条数据），生成token等信息返回

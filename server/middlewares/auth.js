@@ -14,11 +14,9 @@ const auth = async(ctx, next) => {
         else if (err.name === 'JsonWebTokenError')
             throw new global.errs.Forbidden('无效令牌，请重新登录')
     }
-    // ctx.request.header.authorization = 1;
-    console.log(decode)
-    ctx.auth = {
-        id: 1,
-    }
+
+    // 为什么此处的输出的ctx无auth字段，next函数里面也没有，但在next的await中有
+    ctx.auth = {id:decode}
 
     await next()
 }

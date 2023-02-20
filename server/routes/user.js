@@ -7,11 +7,12 @@ const { success } =require('../util/success')
 /**
  * 用户所获得的所有点赞、收藏、文章总数接口
  */
-router.get('/status', auth, async(ctx) => {
+router.get('/status', auth, async (ctx) => {
+	// TODO:Promise.all什么用，此处的ctx无auth
     const r = await Promise.all([
-		User.likeTotal(1),
-		User.collectTotal(1),
-		User.noteTotal(1)
+		User.likeTotal(ctx.auth.id), //TODO:这个函数内部才有
+		User.collectTotal(ctx.auth.id),
+		User.noteTotal(ctx.auth.id)
 	])
 	success(null, {
 		likeNum: r[0],

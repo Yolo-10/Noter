@@ -5,13 +5,17 @@ const { Note } = require('../models/note');
 //用户表
 class User extends Model {
     static async noteTotal(id) {
-        return await Note.sum('id',{ where: {author: id} })
+        return await Note.count('id',{ where: {author: id} })
     }
     static async likeTotal(id) {
         return await Note.sum('likeNum', { where: { author: id } })
     }
     static async collectTotal(id) {
         return await Note.sum('collectNum',{ where: {author:id} })
+    }
+
+    static async modifyInfo(info, id) {
+        return await User.update({...info},{where: {id:id}})
     }
   
     // 从github中获取数据
