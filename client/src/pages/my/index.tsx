@@ -1,11 +1,10 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import Markdown from "@/components/Markdown";
 
 const My: React.FC = () => {
   return (
     <div>
-      my...
-      <Outlet/>
+      <Markdown />
     </div>
   );
 };

@@ -47,7 +47,6 @@ Model.prototype.toJSON = function () {
 	// 待删除字段
 	// TODO:有什么用？？？？ 好像这一部分暂时未使用到
 	if (isArray(this.exclude)) {
-		console.log(111111111111111111111)
 		this.exclude.forEach(val => {
 			unset(data, val)
 		})

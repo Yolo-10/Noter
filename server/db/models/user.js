@@ -17,6 +17,14 @@ class User extends Model {
     static async modifyInfo(info, id) {
         return await User.update({...info},{where: {id:id}})
     }
+
+    // 根据用户id查询用户信息
+    static async getUserInfo(id) {
+        // findByPk:根据主键查询
+        const user = await User.findByPk(id);
+        if (!user) throw new NotFound('未找到该用户');
+        return user;
+    }
   
     // 从github中获取数据
     static async getUserByGithubId(gitUser) {

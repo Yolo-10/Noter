@@ -1,15 +1,24 @@
-import React from "react";
-import { Button, Form, Input } from 'antd';
+import React, { useCallback } from "react";
+import { Button, Form, Input, message } from 'antd';
 import TextArea from "antd/es/input/TextArea";
+import { useAppSelector, useAppDispatch } from "@/store";
+import { saveUser } from "@/store/userSlice";
+import { post } from "@/utils/axios";
+import { API_USER_MODIFY } from "@/constant/urls";
+
 import './index.scss'
-import { useAppSelector } from "@/store";
+import { saveToken } from "@/utils/token";
 
 const Setting: React.FC = () => {
   const userInfo = useAppSelector(state => state.user.userInfo)
+  const dispatch = useAppDispatch()
 
-  const submit = (values:any) => {
-    console.log(values)
-  }
+  const submit = useCallback(async(values:any) => {
+    const r = await post(API_USER_MODIFY, values)
+    saveToken(r?.data?.token)
+    dispatch(saveUser(r?.data))
+    message.success(r.message)
+  },[])
 
   return (
     <div className="g-setting">

@@ -23,7 +23,7 @@ const Login: React.FC = () => {
     setLoading(true)
     let res = await get(url.API_OAUTH, { code: code })
     if (!isN(res?.data)) {
-      dispatch(saveUser(res?.data?.user))
+      dispatch(saveUser(res?.data))
       saveToken(res?.data?.token)
       window.location.href = '/'
     }

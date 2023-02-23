@@ -15,8 +15,9 @@ const auth = async(ctx, next) => {
             throw new global.errs.Forbidden('无效令牌，请重新登录')
     }
 
-    // 为什么此处的输出的ctx无auth字段，next函数里面也没有，但在next的await中有
-    ctx.auth = {id:decode}
+    ctx.auth = { id: decode }
+    // TODO:此处读取的auth是有值得，但ctx没有auth这个属性，思考为什么
+    // console.log(1111,ctx.auth,ctx)
 
     await next()
 }
