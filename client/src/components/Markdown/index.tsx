@@ -5,7 +5,6 @@ import './index.scss'
 
 const Markdown: React.FC = () => {
   const [prev, setPreV] = useState('');
-  const editBox = useRef<HTMLTextAreaElement | null>(null)
 
   marked.setOptions({
     renderer: new marked.Renderer(),
@@ -21,8 +20,8 @@ const Markdown: React.FC = () => {
     console.log(111)
   }
   
-  const doInsPre = () => {
-    if(editBox?.current?.value) setPreV(marked(editBox.current.value))
+  const doInsPre = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+     setPreV(marked((e.target as HTMLTextAreaElement).value))
   }
 
   return <div className='md-editor'>
@@ -44,8 +43,7 @@ const Markdown: React.FC = () => {
     </div>
     <div className="md-editor-content">
       <textarea className="md-editor-input"
-        ref={editBox}
-        onKeyUp={doInsPre}
+        onKeyUp={e=>doInsPre(e)}
         defaultValue=""/>
       <div className="md-editor-preview" dangerouslySetInnerHTML={{__html:prev}}></div>
     </div>
