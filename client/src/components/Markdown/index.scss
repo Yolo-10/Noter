@@ -1,0 +1,65 @@
+.md-editor{
+    min-height: calc(100vh - 97px);
+    height: calc(100vh - 97px);
+    margin: 10px;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+
+    .md-editor-toolbar{
+        height: 35px;
+        padding: 5px 10px;
+        background-color: #efefef;
+        border-bottom: 1px solid #cecece;
+        border-radius: 5px 5px 0 0;
+        display: flex;
+        justify-content: space-between;
+
+        ul{
+            display: flex;
+            padding: 0;
+            margin: 0;
+
+            li{
+                display: flex;
+                flex-direction: column;
+
+                img{
+                    height: 20px;
+                    width: 100%;
+                }
+
+                span{
+                    font-size: 12px;
+                }
+
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            
+            li+li{
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .md-editor-content{
+        display: flex;
+        height: calc(100% - 46px);
+
+        .md-editor-input{
+            width: 50%;
+            padding: 10px;
+            border: none;
+            border-right: 1px solid #cecece;
+            resize: none;
+            outline: none;
+        }
+
+        .md-editor-preview{
+            width: 50%;
+            padding: 10px;
+            background-color: #fff;
+        }
+    }
+}
