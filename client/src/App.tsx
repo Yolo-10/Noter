@@ -16,7 +16,6 @@ const App: React.FC = () => {
 
   const verity = async (token:string) => {
     const r = await get(API_USER_VERITY, {})
-    console.log(r)
     if (r.code === 200) {
       dispatch(saveUser(decode(token)))
     } else if (r.code === 403) {
