@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { svgLfIcons, svgLfText, svgRtIcons, svgRtText } from './icon/index'
 import { marked } from 'marked'
 import hljs from 'highlight.js/lib/core'
@@ -6,7 +6,10 @@ import './github.css'
 import './index.scss'
 
 const Markdown: React.FC = () => {
-  const [prev, setPreV] = useState('');
+  let scrolling = 0, timer: any = null;
+  const [prev, setPreV] = useState('')
+  const refInput = useRef<HTMLTextAreaElement | null>(null)
+  const refPre = useRef<HTMLDivElement | null>(null)
 
   marked.setOptions({
     renderer: new marked.Renderer(),
@@ -16,11 +19,30 @@ const Markdown: React.FC = () => {
     breaks: true,
     smartLists: true,
     smartypants: true,
-    highlight: code => hljs.highlightAuto(code, ['js']).value
+    highlight: code => hljs.highlightAuto(code).value
   }); 
 
   const click = () => {
     console.log(111)
+  }
+
+  const doSynScroll = (e: any, obj: number) => {
+    if (scrolling === 0) scrolling = obj
+    else if (scrolling !== obj) return
+
+    let { scrollTop, scrollHeight } = (e.target);
+    let scale = scrollTop / scrollHeight;
+    obj === 1? driveScroll(scale,refPre):driveScroll(scale,refInput)
+  }
+
+  const driveScroll = (scale:number,obj:any) => {
+    let sH = (refPre.current?.scrollHeight || 0) * scale;
+    obj.current?.scrollTo({ top: sH })
+    if(timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      scrolling = 0
+      clearTimeout(timer)
+    },200)
   }
   
   const doInsPre = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -45,10 +67,19 @@ const Markdown: React.FC = () => {
       </ul>
     </div>
     <div className="md-editor-content">
-      <textarea className="md-editor-input" spellCheck="false"
-        onKeyUp={e=>doInsPre(e)}
-        defaultValue=""/>
-      <div className="md-editor-preview" dangerouslySetInnerHTML={{__html:prev}}></div>
+      <textarea
+        ref={refInput}
+        className="md-editor-input"
+        spellCheck="false"
+        onKeyUp={e => doInsPre(e)}
+        onScroll={e =>doSynScroll(e,1)}
+        defaultValue="" />
+      <div
+        ref={refPre}
+        className="md-editor-preview"
+        onScroll={e =>doSynScroll(e,2)}
+        dangerouslySetInnerHTML={{ __html: prev }}>
+      </div>
     </div>
   </div>
 }

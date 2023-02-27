@@ -47,29 +47,59 @@
         display: flex;
         height: calc(100% - 46px);
 
+        .md-editor-input,.md-editor-preview,.md-editor-preview code{
+            font-family: Source Code Pro,DejaVu Sans Mono,Ubuntu Mono,Anonymous Pro,Droid Sans Mono,Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,PingFang SC,Microsoft YaHei,sans-serif;
+        }
+
+        .md-editor-input,.md-editor-preview{
+            &::-webkit-scrollbar{ // 滚动条整体部分
+                width: 7px;//对垂直方向滚动条
+                height: 7px;//对水平方向滚动条
+            }
+            &::-webkit-scrollbar-thumb{ //滚动的滑块
+                border-radius:3px;
+                background-color: #bbb;//滚动条的颜色
+            }   
+        }
+
         .md-editor-input{
             width: 50%;
             padding: 10px;
             border: none;
             border-right: 1px solid #cecece;
             resize: none;
-            outline: none;
+            outline: none;     
         }
 
         .md-editor-preview{
             width: 50%;
             padding: 10px;
             background-color: #fff;
+            overflow-y: auto;
+
+            code{
+                font-size: 14px;
+                padding: 2px 4px;
+                color: #c7254e;
+                background: #f9f2f4;
+            }
 
             pre{
                 background: #efefef;
-                padding: 14px;
+                padding: 8px 8px;
                 border-radius: 3px;
                 font-size: 15px;
+
+                code{
+                    color: #000;
+                    background: none;
+                    padding: 0;
+                }
             }
 
             p{
                 margin: 3px;
+                word-wrap: break-word;
             }
 
             a{
