@@ -1,6 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { svgLfIcons, svgLfText, svgRtIcons, svgRtText } from './icon/index'
 import { marked } from 'marked'
+import hljs from 'highlight.js/lib/core'
+import './github.css'
 import './index.scss'
 
 const Markdown: React.FC = () => {
@@ -13,7 +15,8 @@ const Markdown: React.FC = () => {
     sanitize: false,
     breaks: true,
     smartLists: true,
-    smartypants: true,   
+    smartypants: true,
+    highlight: code => hljs.highlightAuto(code, ['js']).value
   }); 
 
   const click = () => {
@@ -42,7 +45,7 @@ const Markdown: React.FC = () => {
       </ul>
     </div>
     <div className="md-editor-content">
-      <textarea className="md-editor-input"
+      <textarea className="md-editor-input" spellCheck="false"
         onKeyUp={e=>doInsPre(e)}
         defaultValue=""/>
       <div className="md-editor-preview" dangerouslySetInnerHTML={{__html:prev}}></div>
