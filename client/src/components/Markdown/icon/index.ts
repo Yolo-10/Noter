@@ -8,46 +8,13 @@ import strThrough from "./strThrough.svg";
 import title from "./title.svg";
 import unOrdList from "./unOrdList.svg";
 import todo from "./todo.svg";
+import img from "./img.svg";
+import save from "./save.svg";
+import left from "./left.svg";
+import split from "./split.svg";
+import right from "./right.svg";
 
-// import img from "./img.svg";
-// import reCall from "./reCall.svg";
-// import save from "./save.svg";
-// import split from "./split.svg";
-
-// export const svgLfIcons = [
-//   bold,
-//   italic,
-//   title,
-//   strThrough,
-//   ordList,
-//   unOrdList,
-//   todo,
-//   quote,
-//   codeblock,
-//   img,
-//   link,
-//   reCall,
-//   save,
-// ];
-// export const svgLfText = [
-//   "加粗",
-//   "斜体",
-//   "标题",
-//   "删除线",
-//   "有序",
-//   "无序",
-//   "代办",
-//   "引用",
-//   "代码块",
-//   "图片",
-//   "链接",
-//   "回退",
-//   "保存",
-// ];
-// export const svgRtIcons = [split];
-// export const svgRtText = ["分屏"];
-
-export const svgS = [
+export const svgLf = [
   {
     svgIcon: bold,
     svgIntro: "加粗",
@@ -100,8 +67,8 @@ export const svgS = [
   {
     svgIcon: quote,
     svgIntro: "引用",
-    lfChar: "> ",
-    rtChar: "\n",
+    lfChar: "\n> ",
+    rtChar: "",
     str: "这里是引用",
   },
   {
@@ -117,5 +84,31 @@ export const svgS = [
     lfChar: "[",
     rtChar: "](添加链接url)",
     str: "添加链接描述",
+  },
+];
+
+export const svgCe = [
+  {
+    svgIcon: img,
+    svgIntro: "图片",
+  },
+  {
+    svgIcon: save,
+    svgIntro: "保存",
+  },
+];
+
+export const svgRt = [
+  {
+    svgIcon: left,
+    svgIntro: "左屏",
+  },
+  {
+    svgIcon: split,
+    svgIntro: "分屏",
+  },
+  {
+    svgIcon: right,
+    svgIntro: "右屏",
   },
 ];

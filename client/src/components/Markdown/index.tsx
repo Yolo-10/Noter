@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { svgS } from './icon/index'
+import { svgLf ,svgCe, svgRt } from './icon/index'
 import { marked } from 'marked'
 import hljs from 'highlight.js'
 import './github.css'
@@ -14,7 +14,8 @@ interface svgType {
 }
 
 const Markdown: React.FC = () => {
-  let scrolling = 0, timer1: any = null,timer2: any = null;
+  let scrolling = 0, timer1: any = null, timer2: any = null;
+  const [scr,setScr] = useState(1)
   const [inpV,setInpV] = useState('')
   const [prev, setPreV] = useState('')
   const refInput = useRef<HTMLTextAreaElement | null>(null)
@@ -31,7 +32,32 @@ const Markdown: React.FC = () => {
     highlight: code => hljs.highlightAuto(code).value
   }); 
 
-  const doClick = (item: svgType) => {
+  // 实时渲染
+  const doInsPre = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInpV(e.target.value)
+  }
+
+  // 同步滚动
+  const doSynScroll = (e: any, obj: number) => {
+    if (scrolling === 0) scrolling = obj
+    else if (scrolling !== obj) return
+
+    let { scrollTop, scrollHeight } = (e.target);
+    let scale = scrollTop / scrollHeight;
+    obj === 1? driveScroll(scale,refPre):driveScroll(scale,refInput)
+  }
+  const driveScroll = (scale: number, obj: any) => {
+    let sH = (refPre.current?.scrollHeight || 0) * scale;
+    obj.current?.scrollTo({ top: sH })
+    if(timer1) clearTimeout(timer1)
+    timer1 = setTimeout(() => {
+      scrolling = 0
+      clearTimeout(timer1)
+    },200)
+  }
+
+  // 左上方Item点击事件
+  const doAddMd = (item: svgType) => {
     // 获取光标位置
     let selSt = refInput.current?.selectionStart || 0
     let selEn = refInput.current?.selectionEnd || 0
@@ -58,27 +84,14 @@ const Markdown: React.FC = () => {
     setInpV(str)
   }
 
-  const doSynScroll = (e: any, obj: number) => {
-    if (scrolling === 0) scrolling = obj
-    else if (scrolling !== obj) return
-
-    let { scrollTop, scrollHeight } = (e.target);
-    let scale = scrollTop / scrollHeight;
-    obj === 1? driveScroll(scale,refPre):driveScroll(scale,refInput)
+  // 右上方Item点击事件
+  const doChgScr = (scr: number) => {
+    setScr(scr)
   }
 
-  const driveScroll = (scale:number,obj:any) => {
-    let sH = (refPre.current?.scrollHeight || 0) * scale;
-    obj.current?.scrollTo({ top: sH })
-    if(timer1) clearTimeout(timer1)
-    timer1 = setTimeout(() => {
-      scrolling = 0
-      clearTimeout(timer1)
-    },200)
-  }
-  
-  const doInsPre = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInpV(e.target.value)
+  // 保存
+  const doSave = () => {
+    alert('保存成功')
   }
 
   useEffect(() => {
@@ -88,33 +101,34 @@ const Markdown: React.FC = () => {
   return <div className='md-editor'>
     <div className="md-editor-toolbar">
       <ul>
-        {svgS.map((item, i) =>
-            <li key={i} className="m-icon"
-              onClick={()=>doClick(item)}>
+        {svgLf.map((item, i) =>
+            <li key={`svgLfIcon-${i}`} 
+              onClick={()=>doAddMd(item)}>
              <img src={item.svgIcon} />
-              <span>{ item.svgIntro}</span>
-          </li>)}
+              { item.svgIntro}
+        </li>)}
+        <li style={{margin:'0 15px'}}>|</li>
+        <li><img src={svgCe[0].svgIcon} />{svgCe[0].svgIntro}</li>
+        <li><img src={svgCe[1].svgIcon} onClick={doSave}/>{svgCe[1].svgIntro}</li>
       </ul>
       <ul>
-        {/* {svgRtText.map((item, i) =>
-            <li key={`svgRtIcon-${i}`} className="m-icon">
-              <img src={svgRtIcons[i]} />
-              <span>{item}</span>
-            </li>)} */}
+        {svgRt.map((item,i) => 
+          <li key={`svgRtIcon-${i}`} onClick={()=>doChgScr(i)}>
+            <img src={item.svgIcon} />{item.svgIntro}</li>)}
       </ul>
     </div>
     <div className="md-editor-content">
       <textarea
         ref={refInput}
-        className="md-editor-input"
+        className={scr!==2? "md-editor-input":"md-editor-input hide"}
         spellCheck="false"
         value={inpV}
-        onChange = {e => doInsPre(e)}
-        onScroll={e =>doSynScroll(e,1)} />
+        onChange = {e=>doInsPre(e)}
+        onScroll={e=>doSynScroll(e,1)} />
       <div
         ref={refPre}
-        className="md-editor-preview"
-        onScroll={e =>doSynScroll(e,2)}
+        className={scr!==0? "md-editor-preview":"md-editor-preview hide"}
+        onScroll={e=>doSynScroll(e,2)}
         dangerouslySetInnerHTML={{ __html: prev }}>
       </div>
     </div>
