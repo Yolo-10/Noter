@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { svgLfIcons, svgLfText, svgRtIcons, svgRtText } from './icon/index'
 import { marked } from 'marked'
-import hljs from 'highlight.js/lib/core'
+import hljs from 'highlight.js'
 import './github.css'
 import './index.scss'
 
