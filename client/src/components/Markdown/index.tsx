@@ -94,6 +94,11 @@ const Markdown: React.FC = () => {
     alert('保存成功')
   }
 
+  // 提交
+  const doSubmit = () => {
+    alert('保存成功')
+  }
+
   useEffect(() => {
     setPreV(marked(inpV))
   }, [inpV])
@@ -109,7 +114,8 @@ const Markdown: React.FC = () => {
         </li>)}
         <li style={{margin:'0 15px'}}>|</li>
         <li><img src={svgCe[0].svgIcon} />{svgCe[0].svgIntro}</li>
-        <li><img src={svgCe[1].svgIcon} onClick={doSave}/>{svgCe[1].svgIntro}</li>
+        <li><img src={svgCe[1].svgIcon} onClick={doSave} />{svgCe[1].svgIntro}</li>
+        <li><img src={svgCe[2].svgIcon} onClick={doSubmit}/>{svgCe[2].svgIntro}</li>
       </ul>
       <ul>
         {svgRt.map((item,i) => 

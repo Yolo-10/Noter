@@ -8,7 +8,10 @@ import strThrough from "./strThrough.svg";
 import title from "./title.svg";
 import unOrdList from "./unOrdList.svg";
 import todo from "./todo.svg";
+import hr from "./hr.svg";
 import img from "./img.svg";
+import upload from "./upload.svg";
+import submit from "./submit.svg";
 import save from "./save.svg";
 import left from "./left.svg";
 import split from "./split.svg";
@@ -65,6 +68,13 @@ export const svgLf = [
     str: "List item",
   },
   {
+    svgIcon: hr,
+    svgIntro: "分割",
+    lfChar: "\n\n---\n",
+    rtChar: "",
+    str: "",
+  },
+  {
     svgIcon: quote,
     svgIntro: "引用",
     lfChar: "\n> ",
@@ -85,16 +95,27 @@ export const svgLf = [
     rtChar: "](添加链接url)",
     str: "添加链接描述",
   },
+  {
+    svgIcon: img,
+    svgIntro: "图片",
+    lfChar: "![](",
+    rtChar: ")",
+    str: "https://example.com/your-image.png",
+  },
 ];
 
 export const svgCe = [
   {
-    svgIcon: img,
-    svgIntro: "图片",
+    svgIcon: upload,
+    svgIntro: "上传",
   },
   {
     svgIcon: save,
     svgIntro: "保存",
+  },
+  {
+    svgIcon: submit,
+    svgIntro: "提交",
   },
 ];
 
