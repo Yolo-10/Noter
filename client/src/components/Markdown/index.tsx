@@ -138,6 +138,10 @@ const Markdown: React.FC = () => {
         dangerouslySetInnerHTML={{ __html: prev }}>
       </div>
     </div>
+    <div className="md-editor-footer">
+      <div className="m-info">附件列表</div>
+      <div className="m-item"><a href="">20222-2-2.zip</a></div>
+    </div>
   </div>
 }
 
