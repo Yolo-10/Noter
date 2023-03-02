@@ -5,6 +5,12 @@ import hljs from 'highlight.js'
 import './github.css'
 import './index.scss'
 
+/**
+ * Markdown组件
+ * 已完成：实时渲染、同步滚动、工具栏、附件上传
+ * 有待改进：编辑区滚动条光标样式更改成箭头；编辑区##符号颜色灰色；
+ * 有待改进：预览区代办todo框前的点；换行自动继续之前的格式
+ */
 interface svgType {
   svgIcon: any,
   svgIntro: string,
@@ -17,20 +23,20 @@ const Markdown: React.FC = () => {
   let scrolling = 0, timer1: any = null, timer2: any = null;
   const [scr,setScr] = useState(1)
   const [inpV,setInpV] = useState('')
-  const [prev, setPreV] = useState('')
+  const [preV, setPreV] = useState('')
   const [fileList,setFileList] = useState<File[]>([])
-  const refInput = useRef<HTMLTextAreaElement | null>(null)
-  const refPre = useRef<HTMLDivElement | null>(null)
+  const txtAreRef = useRef<HTMLTextAreaElement | null>(null)
+  const preRef = useRef<HTMLDivElement | null>(null)
   const fileRef = useRef<HTMLInputElement | null>(null)
 
   marked.setOptions({
     renderer: new marked.Renderer(),
-    gfm: true,
-    pedantic: false,
-    sanitize: false,
-    breaks: true,
-    smartLists: true,
-    smartypants: true,
+    gfm: true, //使用更为时髦的标点，比如在引用语法中加入破折号
+    pedantic: false, // 尽可能地兼容 markdown.pl的晦涩部分。不纠正原始模型任何的不良行为和错误。
+    sanitize: false, 
+    breaks: true, //允许回车换行
+    smartLists: true, 
+    smartypants: true, //使用更为时髦的标点，比如在引用语法中加入破折号
     highlight: code => hljs.highlightAuto(code).value
   }); 
 
@@ -46,10 +52,10 @@ const Markdown: React.FC = () => {
 
     let { scrollTop, scrollHeight } = (e.target);
     let scale = scrollTop / scrollHeight;
-    obj === 1? driveScroll(scale,refPre):driveScroll(scale,refInput)
+    obj === 1? driveScroll(scale,preRef):driveScroll(scale,txtAreRef)
   }
   const driveScroll = (scale: number, obj: any) => {
-    let sH = (refPre.current?.scrollHeight || 0) * scale;
+    let sH = (preRef.current?.scrollHeight || 0) * scale;
     obj.current?.scrollTo({ top: sH })
     if(timer1) clearTimeout(timer1)
     timer1 = setTimeout(() => {
@@ -58,16 +64,16 @@ const Markdown: React.FC = () => {
     },200)
   }
 
-  // 左上方Item点击事件
+  // markdown语法Item点击事件
   const doAddMd = (item: svgType) => {
     // 获取光标位置
-    let selSt = refInput.current?.selectionStart || 0
-    let selEn = refInput.current?.selectionEnd || 0
+    let selSt = txtAreRef.current?.selectionStart || 0
+    let selEn = txtAreRef.current?.selectionEnd || 0
     // textarea新文字
     let str = inpV.slice(0, selSt) + item.lfChar
       + (selSt === selEn ? item.str : inpV.slice(selSt, selEn))
       + item.rtChar + inpV.slice(selEn)
-    // 新光标需要体谅的位置下标
+    // 新光标需要提亮的位置下标
     let newSelSt = selSt + item.lfChar.length;
     let newSelEd = selEn + item.lfChar.length + (selSt === selEn ? item.str.length : 0)
     
@@ -79,14 +85,14 @@ const Markdown: React.FC = () => {
     */
     if(timer2) clearTimeout(timer2)
     timer2 = setTimeout(() => {
-      refInput.current?.focus()
-      refInput.current?.setSelectionRange(newSelSt, newSelEd)
+      txtAreRef.current?.focus()
+      txtAreRef.current?.setSelectionRange(newSelSt, newSelEd)
       clearTimeout(timer2)
     }, 50)
     setInpV(str)
   }
 
-  // 右上方Item点击事件
+  // 分屏事件
   const doChgScr = (scr: number) => {
     setScr(scr)
   }
@@ -98,10 +104,16 @@ const Markdown: React.FC = () => {
 
   // 提交
   const doSubmit = () => {
-    console.log(inpV, prev, fileList)
-    alert('保存成功')
+    console.log(inpV, preV, fileList)
+    alert('提交成功')
   }
 
+  // 弹出选择文件的框框
+  const doPopUpload = () => {
+    fileRef.current?.click()
+  }
+
+  // 增加附件
   const doAddFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     let arr = []
     if (e.target.files) {
@@ -110,6 +122,7 @@ const Markdown: React.FC = () => {
     }
   }
 
+  // 删除附件
   const doDelFile = (index: number) => {
     let newList = fileList.filter((item, i) => i !== index)
     setFileList(newList)
@@ -129,7 +142,7 @@ const Markdown: React.FC = () => {
               { item.svgIntro}
         </li>)}
         <li style={{margin:'0 15px'}}>|</li>
-        <li onClick={()=>fileRef.current?.click()}><img src={svgCe[0].svgIcon} />{svgCe[0].svgIntro}
+        <li onClick={doPopUpload}><img src={svgCe[0].svgIcon} />{svgCe[0].svgIntro}
           <input ref={fileRef} type="file" multiple
             accept=".png,jpeg,.zip,.txt,.md"
             onChange={e=>doAddFile(e)}
@@ -146,17 +159,17 @@ const Markdown: React.FC = () => {
     </div>
     <div className="md-editor-content">
       <textarea
-        ref={refInput}
+        ref={txtAreRef}
         className={scr!==2? "md-editor-input":"md-editor-input hide"}
         spellCheck="false"
         value={inpV}
         onChange = {e=>doInsPre(e)}
         onScroll={e=>doSynScroll(e,1)} />
       <div
-        ref={refPre}
+        ref={preRef}
         className={scr!==0? "md-editor-preview":"md-editor-preview hide"}
         onScroll={e=>doSynScroll(e,2)}
-        dangerouslySetInnerHTML={{ __html: prev }}>
+        dangerouslySetInnerHTML={{ __html: preV }}>
       </div>
     </div>
     <div className="md-editor-footer">
