@@ -100,7 +100,7 @@ export const svgLf = [
     svgIntro: "图片",
     lfChar: "![](",
     rtChar: ")",
-    str: "https://example.com/your-image.png",
+    str: "添加图片链接",
   },
 ];
 

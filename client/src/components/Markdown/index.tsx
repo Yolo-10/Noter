@@ -18,8 +18,10 @@ const Markdown: React.FC = () => {
   const [scr,setScr] = useState(1)
   const [inpV,setInpV] = useState('')
   const [prev, setPreV] = useState('')
+  const [fileList,setFileList] = useState<File[]>([])
   const refInput = useRef<HTMLTextAreaElement | null>(null)
   const refPre = useRef<HTMLDivElement | null>(null)
+  const fileRef = useRef<HTMLInputElement | null>(null)
 
   marked.setOptions({
     renderer: new marked.Renderer(),
@@ -96,13 +98,27 @@ const Markdown: React.FC = () => {
 
   // 提交
   const doSubmit = () => {
+    console.log(inpV, prev, fileList)
     alert('保存成功')
+  }
+
+  const doAddFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let arr = []
+    if (e.target.files) {
+      arr = Object.values(e.target.files)
+      setFileList([...arr,...fileList])
+    }
+  }
+
+  const doDelFile = (index: number) => {
+    let newList = fileList.filter((item, i) => i !== index)
+    setFileList(newList)
   }
 
   useEffect(() => {
     setPreV(marked(inpV))
   }, [inpV])
-
+  
   return <div className='md-editor'>
     <div className="md-editor-toolbar">
       <ul>
@@ -113,9 +129,14 @@ const Markdown: React.FC = () => {
               { item.svgIntro}
         </li>)}
         <li style={{margin:'0 15px'}}>|</li>
-        <li><img src={svgCe[0].svgIcon} />{svgCe[0].svgIntro}</li>
-        <li><img src={svgCe[1].svgIcon} onClick={doSave} />{svgCe[1].svgIntro}</li>
-        <li><img src={svgCe[2].svgIcon} onClick={doSubmit}/>{svgCe[2].svgIntro}</li>
+        <li onClick={()=>fileRef.current?.click()}><img src={svgCe[0].svgIcon} />{svgCe[0].svgIntro}
+          <input ref={fileRef} type="file" multiple
+            accept=".png,jpeg,.zip,.txt,.md"
+            onChange={e=>doAddFile(e)}
+            style={{ display: 'none' }} />
+        </li>
+        <li onClick={doSave} ><img src={svgCe[1].svgIcon}/>{svgCe[1].svgIntro}</li>
+        <li onClick={doSubmit}><img src={svgCe[2].svgIcon} />{svgCe[2].svgIntro}</li>
       </ul>
       <ul>
         {svgRt.map((item,i) => 
@@ -140,7 +161,12 @@ const Markdown: React.FC = () => {
     </div>
     <div className="md-editor-footer">
       <div className="m-info">附件列表</div>
-      <div className="m-item"><a href="">20222-2-2.zip</a></div>
+      {fileList.map((item, i) =>
+        <div className='m-item' key={`fileList-${item.lastModified}`}>
+          <a href="">{item.name}</a> 
+          <span onClick={()=>doDelFile(i)}>x</span>
+        </div>
+      )}
     </div>
   </div>
 }

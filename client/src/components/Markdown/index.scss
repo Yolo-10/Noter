@@ -48,7 +48,7 @@
 
     .md-editor-content{
         display: flex;
-        height: calc(100% - 71px);
+        height: calc(100% - 81px);
 
         .md-editor-input,.md-editor-preview,.md-editor-preview code{
             font-family: Source Code Pro,DejaVu Sans Mono,Ubuntu Mono,Anonymous Pro,Droid Sans Mono,Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,PingFang SC,Microsoft YaHei,sans-serif;
@@ -144,7 +144,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        height: 25px;
+        height: 35px;
         font-size: 12px;
         background: #666666;
         border-radius: 0 0 5px 5px;
@@ -164,6 +164,19 @@
 
             a{
                 color: #fff;
+            }
+
+            span{
+                display: none;
+                margin-left: 12px;
+            }
+
+            &:hover{
+                cursor: default;
+                
+                span{
+                    display: inline-block;
+                }
             }
         }
     }
