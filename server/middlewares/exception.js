@@ -18,6 +18,7 @@ const catchError = async (ctx, next) => {
 			// TODO:多种code形式
 			switch (error.code) {
 				case 403: ctx.status = 403
+				case 400: ctx.status = 400
 			}
 		} else {
 			ctx.body = {

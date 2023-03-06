@@ -1,9 +1,30 @@
 .md-editor{
-    min-height: calc(100vh - 97px);
-    height: calc(100vh - 97px);
+    min-height: calc(100vh - 102px);
+    height: calc(100vh - 102px);
     margin: 10px;
     border: 1px solid #cecece;
     border-radius: 5px;
+
+    .md-editor-title{
+        display: flex;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 15px;
+        font-size: 18px;
+        background: #EFEFEF;
+        color: #6B6B6B;
+        border-radius: 5px 5px 0 0;
+
+        input{
+            flex: 1;
+            border-radius: 16px;
+            outline: none;
+            margin: 5px 0;
+            font-size: 18px;
+            padding: 0 12px;
+            border: 1px solid #ccc;
+        }
+    }
 
     .md-editor-toolbar{
         height: 35px;
@@ -48,7 +69,7 @@
 
     .md-editor-content{
         display: flex;
-        height: calc(100% - 81px);
+        height: calc(100% - 116px);
 
         .md-editor-input,.md-editor-preview,.md-editor-preview code{
             font-family: Source Code Pro,DejaVu Sans Mono,Ubuntu Mono,Anonymous Pro,Droid Sans Mono,Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,PingFang SC,Microsoft YaHei,sans-serif;

@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { svgLf ,svgCe, svgRt } from './icon/index'
 import { marked } from 'marked'
 import hljs from 'highlight.js'
+import { message } from 'antd'
+import { post } from '@/utils/axios'
+import { svgLf ,svgCe, svgRt } from './icon/index'
 import './github.css'
 import './index.scss'
 
 /**
  * Markdown组件
- * 已完成：实时渲染、同步滚动、工具栏、附件上传
+ * 已完成：实时渲染、同步滚动、工具栏、附件上传、标题栏字数
  * 有待改进：编辑区滚动条光标样式更改成箭头；编辑区##符号颜色灰色；
  * 有待改进：预览区代办todo框前的点；换行自动继续之前的格式
  */
@@ -19,12 +21,17 @@ interface svgType {
   str:string,
 }
 
-const Markdown: React.FC = () => {
+interface mdType {
+  api: string,
+}
+
+const Markdown: React.FC<mdType> = (props) => {
   let scrolling = 0, timer1: any = null, timer2: any = null;
-  const [scr,setScr] = useState(1)
-  const [inpV,setInpV] = useState('')
+  const [scr, setScr] = useState(1)
+  const [title,setTle] = useState('【无标题】')
+  const [inpV, setInpV] = useState('')
   const [preV, setPreV] = useState('')
-  const [fileList,setFileList] = useState<File[]>([])
+  const [fileList, setFileList] = useState<File[]>([])
   const txtAreRef = useRef<HTMLTextAreaElement | null>(null)
   const preRef = useRef<HTMLDivElement | null>(null)
   const fileRef = useRef<HTMLInputElement | null>(null)
@@ -98,14 +105,24 @@ const Markdown: React.FC = () => {
   }
 
   // 保存
-  const doSave = () => {
-    alert('保存成功')
+  const doSave = async() => {
+    await doPostAjax(1)
   }
 
   // 提交
-  const doSubmit = () => {
-    console.log(inpV, preV, fileList)
-    alert('提交成功')
+  const doSubmit = async() => {
+    await doPostAjax(2)
+    // window.location.href = '/profile'
+  }
+
+  // 保存/提交的请求
+  const doPostAjax = async (type: number) => {
+    if (title.length === 0 || inpV.length === 0) {
+      alert('请填写完数据')
+      return
+    }
+    const r = await post(props.api, { title, raw: inpV, html: preV, fileList, status: type })
+    message.success(r.message)
   }
 
   // 弹出选择文件的框框
@@ -133,12 +150,18 @@ const Markdown: React.FC = () => {
   }, [inpV])
   
   return <div className='md-editor'>
+    <div className="md-editor-title">
+      标题：<input required name="title" type="text" placeholder='请输入标题' 
+      value={title} maxLength={32} 
+        onChange={(e) => setTle(e.target.value)}/>
+      <span>{title.length}/32</span>
+    </div>
     <div className="md-editor-toolbar">
       <ul>
         {svgLf.map((item, i) =>
             <li key={`svgLfIcon-${i}`} 
               onClick={()=>doAddMd(item)}>
-             <img src={item.svgIcon} />
+            <img src={item.svgIcon} />
               { item.svgIntro}
         </li>)}
         <li style={{margin:'0 15px'}}>|</li>
@@ -158,7 +181,9 @@ const Markdown: React.FC = () => {
       </ul>
     </div>
     <div className="md-editor-content">
-      <textarea
+    <textarea
+        required
+        name="raw"
         ref={txtAreRef}
         className={scr!==2? "md-editor-input":"md-editor-input hide"}
         spellCheck="false"
@@ -181,7 +206,7 @@ const Markdown: React.FC = () => {
         </div>
       )}
     </div>
-  </div>
+</div>
 }
 
 export default Markdown

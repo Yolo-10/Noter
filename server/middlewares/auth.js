@@ -17,7 +17,7 @@ const auth = async(ctx, next) => {
 
     ctx.auth = { id: decode }
     // TODO:此处读取的auth是有值得，但ctx没有auth这个属性，思考为什么
-    // console.log(1111,ctx.auth,ctx)
+    // console.log(1111,ctx.auth)
 
     await next()
 }

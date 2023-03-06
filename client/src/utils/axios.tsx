@@ -44,7 +44,7 @@ export const get = (url:string,params?:{}) => {
     )
 }
 
-export const post = (url: string, data: {}) => {
+export const post = (url: string, data?: {}) => {
     return request(
         url,
         {

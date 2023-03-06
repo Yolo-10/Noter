@@ -1,6 +1,7 @@
 import React from "react";
 import './index.scss'
 
+import FixedBar from '@/components/FixedBar'
 import avatar from '@/assets/img/avatar.png'
 import cnt from '@/assets/img/cnt.png'
 import ICON from "@/assets/img";
@@ -86,6 +87,8 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <FixedBar />
     </div>
   );
 };

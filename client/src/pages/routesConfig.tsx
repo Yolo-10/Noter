@@ -5,6 +5,7 @@ const NavWrapper = lazy(() => import("@/components/NavWrapper"))
 const Auth = lazy(() => import("@/components/Auth"))
 const Home = lazy(() => import("@/pages/home"));
 const My = lazy(() => import("@/pages/my"));
+const Write = lazy(() => import("@/pages/write"));
 const Profile = lazy(() => import("@/pages/profile"));
 const Setting = lazy(() => import("@/pages/setting"));
 const Login = lazy(() => import("@/pages/login"));
@@ -22,6 +23,10 @@ const RouterConfig: React.FC = () => {
         {
           path: "/my",
           element: <My />,
+        },
+        {
+          path: "/write",
+          element: <Auth><Write /></Auth>,
         },
         {
           path: "/profile",

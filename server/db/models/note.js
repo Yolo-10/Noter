@@ -2,7 +2,16 @@ const { DataTypes, Model } = require('sequelize');
 const { db } = require('../db')
 
 //文章表
-class Note extends Model {}
+class Note extends Model {
+	/**
+	 * 新增文章,存草稿或者直接发布
+	 */
+	static async addNote(note) {
+		return await Note.create({
+			...note
+		})
+	}
+}
 
 Note.init({
     // 记录ID

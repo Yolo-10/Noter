@@ -189,9 +189,9 @@ class AddNoteValidator extends LinValidator {
 		this.title = [
 			new Rule('isLength', '文章标题须在1-32个字符之间', { min: 1, max: 32 })
 		]
-		this.tag = [
-			new Rule('isLength', '需要TagsID序列', { min: 1, max: 50 })
-		]
+		// this. = [
+		// 	new Rule('isLength', '需要TagsID序列', { min: 1, max: 50 })
+		// ]
 		this.status = [
 			new Rule('isInt', '需要正整数且为1或2', { min: 1, max: 2 })
 		]
