@@ -5,12 +5,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "@/store";
 import { API_USER_STATUS } from "@/constant/urls";
 import { get } from '@/utils/axios'
-
-interface proDataType {
-  noteNum: number,
-  likeNum: number,
-  collectNum: number,
-}
+import { proDataType } from "@/utils/types";
 
 const Profile: React.FC = () => {
   const userInfo = useAppSelector(state => state.user.userInfo)

@@ -1,22 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { removeToken } from "@/utils/token";
+import { userStateType } from "@/utils/types";
 
-interface userType {
-  id: number;
-  userName: string;
-  email: string;
-  avatar: string;
-  githubId: number;
-  realName: string;
-  desc: string;
-  password: string;
-}
-
-interface userState {
-  userInfo: userType | undefined;
-}
-
-const initialState: userState = {
+const initialState: userStateType = {
   userInfo: undefined,
 };
 
