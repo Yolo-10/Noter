@@ -22,5 +22,10 @@ router.get('/hotList', async () => {
 	const notes = await Note.showHotNotes();
 	success(false, notes);
 });
+
+router.get('/myList', auth, async (ctx) => {
+	const notes = await Note.showMyNotes(ctx.auth.id);
+	success(false,notes)
+})
   
 module.exports = router

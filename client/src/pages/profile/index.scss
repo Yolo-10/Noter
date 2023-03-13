@@ -1,48 +1,107 @@
 .g-profile{
     margin: 20px 80px;
-    display: flex;  
+    display: flex; 
+    flex-direction: column; 
 
-    >div{
-        padding: 20px;
-        background-color: #fff;
-    }
-
-    .m-user{
-        min-width: 760px;
-        height: 124px;
+    .my-status{
         display: flex;
-        align-items: flex-end;
+        margin-bottom: 20px;
 
-        .avatar{
-            height: 100%;
-            img{
-                height: 100%;
-                border-radius: 50%;
-            }
+        >div{
+            padding: 20px;
+            background-color: #fff;
         }
 
-        .user-mes{
+        .m-user{
             flex: 1;
-            margin-left: 20px;
+            height: 124px;
+            display: flex;
+            align-items: flex-end;
+
+            .avatar{
+                height: 100%;
+                img{
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+
+            .user-mes{
+                flex: 1;
+                margin-left: 20px;
+            }
         }
-    }
 
-    .m-score{
-        min-width: 230px;
-        margin-left: 50px;
+        .m-score{
+            min-width: 230px;
+            margin-left: 50px;
 
-        .hd{
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
+            .hd{
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
 
-        .item{
-            padding: 3px 0;
+            .item{
+                padding: 3px 0;
 
-            >span{
-                padding-right: 5px;
+                >span{
+                    padding-right: 5px;
+                }
             }
         }
     }
+    
+    .my-list{
+        display: flex;
+        flex-direction: column;
+
+        .note-card {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 15px;
+        
+            .item-hd{
+                display: flex;
+                justify-content: space-between;
+
+                .title{
+                    font-size: 20px;
+                }
+            }
+            
+            .item-ft{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+        
+                .icon{
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+        
+                    div {
+                        margin-right: 5px;
+                        color: #8a8a8a;
+                    }
+        
+                    & > div + div{
+                        margin-left: 5px;
+                    }
+                }
+        
+                // .btn{
+                //     background-color: none;
+                // }
+            }
+        
+            &:hover {
+                box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+                transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            }
+        }
+    }
+    
 }

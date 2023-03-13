@@ -17,6 +17,7 @@ class Note extends Model {
 		return notes
 	}
 
+	// 搜索5个最热笔记--按喜欢数+更新时间排序
 	static async showHotNotes() {
 		let sql = `SELECT u.user_name, u.avatar, n.id , n.title ,n.tag
 			FROM note n LEFT JOIN user u ON n.author = u.id 
@@ -25,6 +26,17 @@ class Note extends Model {
 		// notes = this.common(notes)
 		return notes
 	}
+
+	static async showMyNotes(uid) {
+		let sql = `SELECT u.user_name, u.avatar, n.* 
+		FROM note n LEFT JOIN user u ON n.author = u.id 
+		WHERE u.id = ${uid}
+		ORDER BY n.updated_at DESC`
+		let notes = await db.query(sql, { type: QueryTypes.SELECT })
+		// notes = this.common(notes)
+		return notes
+	}
+
 
 	// 获取文章视图公共方法:每个笔记加上标签tags
 	static async common(notes) {

@@ -2,13 +2,49 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import './index.scss'
 
-import NoteCard from "@/components/NoteCard";
 import ICON from "@/assets/img";
 import { get } from "@/utils/axios";
-import { scrollToTop } from "@/utils/fn";
+import { rTime, scrollToTop } from "@/utils/fn";
 import { NoteType } from '@/utils/types'
 import { API_NOTE_HOT_LIST, API_NOTE_LIST } from "@/constant/urls";
 import { HOME_TAB } from "@/constant/config";
+
+const NoteCard = (props: any) => {
+  const { note } = props
+  return <div className="note-card">
+    <div className="item-hd">{ note.title }</div>
+    <div className="item-bd">
+      <div className="bdc-lt">
+        <span>{note.raw}</span>
+      </div>
+      <div className="bdc-rt">
+        {note.cover && <img src={note.cover} alt="" />}
+      </div>
+    </div>
+    <div className="item-ft">
+      <div className='user'>
+        <img className='user-icon' src={ note.avatar } alt='' />
+        <span className='username'>{ note.user_name }</span>
+        <span className='update-time'>{rTime(note.updated_at)}</span>
+      </div>
+      
+      <div className="icon">
+        <div>
+          <img src={ICON.thumb} alt='' />
+          <span>{ note.like_num }</span>
+        </div>
+        <div>
+          <img src={ICON.bookmark} alt='' />
+          <span>{ note.collect_num }</span>
+        </div>
+        <div>
+          <img src={ICON.comment} alt='' />
+          <span>{ note.comment_num }</span>
+        </div>
+      </div>
+    </div>
+  </div>
+}
 
 const Home: React.FC = () => {
   const [tab,setTab] = useState(0)
