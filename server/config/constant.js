@@ -1,12 +1,12 @@
 module.exports = {
-    database:{
+    database: {
         host:'localhost',
         port:3306,
         dbName:'noter',
         user:'root',
         password:'123456',
     },
-    secrets:{
+    secrets: {
         secretKey:'MorningBlog2023', 
         expiresIn: 60 * 60 * 24 , //一周
     },

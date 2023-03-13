@@ -70,8 +70,6 @@
         }
 
         .note-list{
-            min-width: 800px;
-
             .no-data {
                 height: 50px;
                 display: flex;
@@ -221,7 +219,7 @@
                             text-overflow: ellipsis;
                             display: -webkit-box;
                             -webkit-box-orient: vertical;
-                            -webkit-line-clamp: 2;
+                            -webkit-line-clamp: 1;
 
                             :hover {
                                 color: #fd281a;
@@ -229,6 +227,25 @@
                         }
                     }
                 }
+            }
+        }
+    }
+
+    .m-fixBar{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        right: 5%;
+        bottom: 15%;
+    
+        img{
+            height: 27px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 5px;
+    
+            &:hover{
+                background-color: unset;
             }
         }
     }

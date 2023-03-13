@@ -123,6 +123,7 @@ const Markdown: React.FC<mdType> = (props) => {
     }
     const r = await post(props.api, { title, raw: inpV, html: preV, fileList, status: type })
     message.success(r.message)
+    window.location.href='/'
   }
 
   // 弹出选择文件的框框

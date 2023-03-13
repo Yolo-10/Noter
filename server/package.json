@@ -25,7 +25,7 @@
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
     "lodash": "^4.17.11",
-    "module-alias": "^2.2.0",
+    "module-alias": "^2.2.2",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.20",
@@ -37,10 +37,7 @@
     "validator": "^11.0.0"
   },
   "_moduleAliases": {
-    "@root": ".",
-    "@models": "app/models",
-    "@core": "core/",
-    "@validator": "app/validator"
+    "@": "./"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

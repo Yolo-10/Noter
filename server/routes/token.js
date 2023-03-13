@@ -1,22 +1,20 @@
 const Router = require('koa-router');
 const axios = require('axios');
-const { github } = require('../config/constant')
-const { success } = require('../util/success')
-const { generateToken } = require('../util/jwtToken')
-const { User } = require('../db/models/user')
-
-//自动加前缀
 const router = new Router({ prefix: '' });
+const { github } = require('@/config/constant')
+const { User } = require('@/db/models/user')
+const { success } = require('@/util/success')
+const { generateToken } = require('@/util/jwtToken')
 
 // github授权登录
 router.get('/oauth', async (ctx) => {
-  let data = {
-		id: 80615277,
-	}
-	const { token, user } = await generateData(data)
-  success(user.userName + '欢迎您', { token, user, type: 233 })
+  // let data = {
+	// 	id: 80615277,
+	// }
+	// const { token, user } = await generateData(data)
+  // success(user.userName + '欢迎您', { token, user, type: 233 })
   
-  /**
+
   // 拿到授权码
   const code = ctx.query.code;
   // 向 GitHub 请求令牌
@@ -30,7 +28,6 @@ router.get('/oauth', async (ctx) => {
       accept: 'application/json'
     }
   })
-  // console.log('authResp',authResp)
 
   if (authResp?.data?.access_token) {
     // 有了令牌，向github请求用户数据
@@ -45,11 +42,12 @@ router.get('/oauth', async (ctx) => {
 
     // 拿到用户数据，本平台内登录，获取数据
     if (resp?.status === 200) {
+      const { token, user } = await generateData(resp?.data)
+      success(user.userName + '欢迎您', { token, user, type: 233 })
     }
   } else {
     throw new global.errs.Forbidden();
   }
-  */
 });
 
 // 从github中获取用户数据，（并向用户表新增一条数据），生成token等信息返回

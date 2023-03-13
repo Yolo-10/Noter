@@ -1,32 +1,32 @@
 const { DataTypes, Model } = require('sequelize');
-const { db } = require('../db')
-const { Note } = require('../models/note');
+const { db } = require('@/db')
+const { Note } = require('./note');
 
-//用户表
 class User extends Model {
     static async noteTotal(id) {
         return await Note.count('id',{ where: {author: id} })
     }
     static async likeTotal(id) {
-        return await Note.sum('likeNum', { where: { author: id } })
+        return await Note.sum('likeNum', { where: {author:id} })
     }
     static async collectTotal(id) {
         return await Note.sum('collectNum',{ where: {author:id} })
     }
-
+    static async commentTotal(id) {
+        return await Note.sum('commentNum',{ where: {author:id} })
+    }
     static async modifyInfo(info, id) {
-        return await User.update({...info},{where: {id:id}})
+        return await User.update({...info},{ where: {id:id} })
     }
 
     // 根据用户id查询用户信息
     static async getUserInfo(id) {
-        // findByPk:根据主键查询
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(id); //findByPk:根据主键查询
         if (!user) throw new NotFound('未找到该用户');
         return user;
     }
   
-    // 从github中获取数据
+    // 通过githubId寻找用户：无则新增、有则返回
     static async getUserByGithubId(gitUser) {
         const user = await User.findOne({ where: {githubId: gitUser.id}});
         if (user) {

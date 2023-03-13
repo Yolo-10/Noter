@@ -15,6 +15,11 @@ export const MENU_MY = [
     {name:'账号设置',key:'/setting'},
 ]
 
+export const HOME_TAB = [
+    '所有',
+    '标签'
+] 
+
 export const GITHUB_CONFIG = {
     clientID : '55280d745fd8bb0a098e',
     redirectUri : 'http://localhost:3000/login',

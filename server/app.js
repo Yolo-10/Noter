@@ -1,9 +1,10 @@
+require('module-alias/register');
 const koa = require('koa')
 const cors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
-const initManager = require('./util/initManager')
-const catchError= require('./middlewares/exception')
-const { db } = require('./db/db')
+const initManager = require('@/util/initManager')
+const catchError= require('@/middlewares/exception')
+const { db } = require('@/db')
 
 const app = new koa()
 const port = 8030

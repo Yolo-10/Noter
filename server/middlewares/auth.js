@@ -1,4 +1,4 @@
-const { verifyToken } = require('../util/jwtToken');
+const { verifyToken } = require('@/util/jwtToken');
 
 const auth = async(ctx, next) => {
     let decode;

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const { Model } = require('sequelize')
 const { unset, clone, isArray } = require('lodash');
-const { host,port,dbName,user,password } = require('../config/constant').database
+const { host, port, dbName, user, password } = require('../config/constant').database
 
 //连接配置
 const db = new Sequelize(dbName,user,password,{
@@ -27,16 +27,12 @@ const db = new Sequelize(dbName,user,password,{
 // 如果不存在,则创建该表(如果已经存在,则不执行任何操作)
 db.sync()
 
-
 /** 查找数据库返回的数据做处理
  * 全局:返回的时候删除三个时间戳
  * 功能简单粗暴单一
  */
 Model.prototype.toJSON = function () {
 	let data = clone(this.dataValues)
-	unset(data, 'updatedAt')
-	unset(data, 'createdAt')
-	unset(data, 'deletedAt')
 
 	for (let key in data) {
 		if (key === 'image') {
@@ -44,8 +40,6 @@ Model.prototype.toJSON = function () {
 		}
 	}
 
-	// 待删除字段
-	// TODO:有什么用？？？？ 好像这一部分暂时未使用到
 	if (isArray(this.exclude)) {
 		this.exclude.forEach(val => {
 			unset(data, val)
@@ -55,4 +49,4 @@ Model.prototype.toJSON = function () {
 	return data
 }
 
-module.exports = { db }
+module.exports = {db}

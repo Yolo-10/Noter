@@ -1,4 +1,4 @@
-const { HttpException } = require('../util/errors')
+const { HttpException } = require('@/util/errors')
 
 /**
  * 全局捕获异常中间件

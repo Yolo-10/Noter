@@ -1,7 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
-const { db } = require('../db')
+const { db } = require('@/db')
 
-//标签表
 class Tag extends Model {}
 
 Tag.init({
@@ -16,6 +15,5 @@ Tag.init({
     sequelize: db, // 连接实例
     tableName: 'tag' // 模型名称
 })
-
 
 module.exports = { Tag }

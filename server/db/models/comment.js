@@ -1,13 +1,13 @@
 const { DataTypes, Model } = require('sequelize');
-const { db } = require('../db')
+const { db } = require('@/db')
 
-//评论表
-class Comment extends Model {}
+class Comment extends Model { }
 
 Comment.init({
-    bookId: DataTypes.INTEGER,
-	content: DataTypes.STRING(12),   // 短评限制12字符
-	nums: {
+	uid: DataTypes.INTEGER,
+    noteId: DataTypes.INTEGER,
+	content: DataTypes.STRING(30), //评论限制30字
+	num: {
 		type: DataTypes.INTEGER,
 		defaultValue: 0
 	},
@@ -15,6 +15,5 @@ Comment.init({
     sequelize: db, // 连接实例
     tableName: 'comment' // 模型名称
 })
-
 
 module.exports = { Comment }
